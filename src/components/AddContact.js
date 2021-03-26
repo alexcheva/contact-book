@@ -24,3 +24,4 @@ const AddContactForm = () => {
     </div>
   );
 }
+export default AddContactForm;

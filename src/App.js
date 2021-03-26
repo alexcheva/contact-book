@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-
+import AddContactForm from "./components/AddContact";
 function App() {
   return (
     <div className="App">
@@ -10,7 +10,7 @@ function App() {
         <p>Keep your contacts organized.</p>
       </header>
       <main>
-        
+        <AddContactForm />
       </main>
     </div>
   );
