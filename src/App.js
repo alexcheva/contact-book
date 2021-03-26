@@ -2,6 +2,7 @@
 import headerImg from './friends.png';
 import './App.css';
 import AddContactForm from "./components/AddContact";
+import Contacts from "./components/ShowContacts";
 function App() {
   return (
     <div className="App">
@@ -12,6 +13,7 @@ function App() {
       </header>
       <main>
         <AddContactForm />
+        <Contacts />
       </main>
     </div>
   );
