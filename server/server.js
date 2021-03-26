@@ -7,7 +7,7 @@ const db = pgp("postgres://localhost:5432/contacts");
 app.use(cors());
 app.use(express.json());
 //app.use(express.urlencoded({ extended: true }));
-app.get("/species", async (req, res) => {
+app.get("/contacts", async (req, res) => {
   try {
     const contacts = await db.any("SELECT * FROM contacts;", [true]);
     res.json(contacts);
