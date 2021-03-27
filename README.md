@@ -106,5 +106,12 @@ Barker
 9129003587  
 esbeck@verizon.net
 
+## Functionality
+- Add a new contact  
+  - If contact already exists, display a message to the user  
+- Search for contacts by last name  
+- View all contacts  
+- BONUS: remove a contact
+
 
 

@@ -3,6 +3,8 @@ import headerImg from './friends.png';
 import './App.css';
 import AddContactForm from "./components/AddContact";
 import Contacts from "./components/ShowContacts";
+import SearchContacts from "./components/SearchContacts";
+import Footer from "./components/Footer";
 function App() {
   return (
     <div className="App">
@@ -13,8 +15,10 @@ function App() {
       </header>
       <main>
         <AddContactForm />
+        <SearchContacts />
         <Contacts />
       </main>
+      <Footer />
     </div>
   );
 }

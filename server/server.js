@@ -5,7 +5,7 @@ const cors = require('cors');
 const db = pgp("postgres://localhost:5432/contacts");
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); //res.body
 //app.use(express.urlencoded({ extended: true }));
 app.get("/contacts", async (req, res) => {
   try {
@@ -25,19 +25,31 @@ app.get("/queryContacts/:lname", async (req, res) => {
     console.log(e);
   }
 });
-app.post('/addContact', function (req, res) {
-  //const today = new Date();
-  const {fname, lname, email, number} = req.body;
-  db.none('INSERT INTO contacts (fname, lname, email, number) values ($1,$2,$3,$4)',[fname, lname, email, number]).then(data => {
-      console.log("SUCCESS: Individual is added to the contact book"); // print new Individual id;
+app.post('/addContact', async (req, res) => {
+  try {
+    const {fname, lname, phone_num, email} = req.body;
+    db.none('INSERT INTO contacts (fname, lname, phone_num, email ) values ($1,$2,$3,$4)', [fname, lname, phone_num, email]).then(data => {
+      res.json({
+        message: "Success!",
+        body: "The contact for ",
+        fname: fname,
+        lname: lname,
+        end: " has been added!"
+      });
+      console.log("SUCCESS: Individual is added to the contact book.");
   })
-  .catch(error => {
-      console.log('ERROR:', error); // print error;
-  });
+  } catch (err) {
+    console.error(err.message);
+    res.json({
+      message: "Error!",
+      error: err
+    });
+  }
+
 });
 
 app.delete("/deleteContact/:id", async (req, res) => {
-  db.result(`DELETE FROM Events WHERE id = ${id}`, [123], r => r.rowCount)
+  db.result(`DELETE FROM Events WHERE id = ${id}`, [true])
     .then(data => {
         // data = number of rows that were deleted
       console.log(`deleted ${data}`);

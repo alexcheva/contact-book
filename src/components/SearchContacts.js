@@ -1,30 +1,28 @@
 import * as React from "react";
-function Contacts() {
+function SearchContacts() {
   const [contacts, setContacts] = React.useState([]);
-
-  function getContacts() {
-    fetch("http://localhost:9000/contacts")
+  const [lname, setLname]  = React.useState("");
+  function getContacts(lname) {
+    fetch(`http://localhost:9000//queryContacts/${lname}`)
       .then((res) => res.json())
       .then((data) => setContacts(data));
   }
-  const deleteContact = async (id) => {
-    try {
-      const deleteContact = await fetch(`http://localhost:9000/deleteContact/${id}`, {
-        method: "DELETE"
-      });
-    } catch (err) {
-      console.error(err.message)
-    }
+
+  const submitForm = async (e) => {
+    e.preventDefault();
+    getContacts(lname);
   }
-  console.log(contacts);
-  React.useEffect(() => {
-    getContacts();
-  }, []);
 
   return (
     <section className="container-fluid data">
       <div className="container table-responsive">
-        <h2>Contacts</h2>
+        <h2>Search:</h2>
+        <form onSubmit={submitForm}>
+          <label>Last Name:</label>
+          <input type="text" name='lname' onChange={(e) => { setLname(e.target.value)}}/>
+          <input type="submit" value="search" />
+        </form>
+        <h3>Search Results:</h3>
         <table className="table table-striped">
           <thead>
             <th>First Name:</th>
@@ -50,7 +48,7 @@ function Contacts() {
                   <td>
                     {!email? "Not Added" : email}
                   </td>
-                  <td><button className="warning" onClick={()=>deleteContact({id})}>Edit</button></td>
+                  <td><button className="warning">Edit</button></td>
                   <td><button className="danger">Delete</button></td>
                 </tr>
               )
@@ -62,4 +60,4 @@ function Contacts() {
   );
 }
 
-export default Contacts;
+export default SearchContacts;
