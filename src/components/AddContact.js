@@ -33,7 +33,8 @@ const AddContactForm = () => {
           const successMsg = `Success! ${data.fname} ${data.lname} has been added to your Contacts!`;
           setMsg(successMsg);
         } else {
-          setMsg(`Error! ${data.error}`)
+          debugger
+          setMsg(`Error! ${data.error.detail}`)
         }
         
       })

@@ -28,7 +28,7 @@ app.get("/queryContacts/:lname", async (req, res) => {
 app.post('/addContact', async (req, res) => {
   try {
     const {fname, lname, phone_num, email} = req.body;
-    db.none('INSERT INTO contacts (fname, lname, phone_num, email ) values ($1,$2,$3,$4)', [fname, lname, phone_num, email]).then(data => {
+    await db.none('INSERT INTO contacts (fname, lname, phone_num, email ) values ($1,$2,$3,$4)', [fname, lname, phone_num, email]).then(data => {
       res.json({
         message: "Success!",
         body: "The contact for ",
@@ -39,6 +39,7 @@ app.post('/addContact', async (req, res) => {
       console.log("SUCCESS: Individual is added to the contact book.");
   })
   } catch (err) {
+    console.log("fooo");
     console.error(err.message);
     res.json({
       message: "Error!",
