@@ -9,16 +9,20 @@ function Contacts() {
       .then((data) => setContacts(data));
   }
 
-  const deleteContact = async ({ id }) => {
+  const deleteContact = async (id) => {
     try {
-      debugger
-      const deleteContact = await fetch(`http://localhost:9000/deleteContact/${id}`, {
-        method: "DELETE"
-      });
+      debugger;
+      console.log("HERE I AM", id);
+      const deleteContact = await fetch(
+        `http://localhost:9000/deleteContact/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
     } catch (err) {
-      console.error(err.message)
+      console.error(err.message);
     }
-  }
+  };
   console.log(contacts);
 
   React.useEffect(() => {
@@ -28,7 +32,7 @@ function Contacts() {
   function searchData(e) {
     e.preventDefault();
     //take the string
-    const tempContacts = contacts.filter(contact => contact.lname === search);
+    const tempContacts = contacts.filter((contact) => contact.lname === search);
     setContacts(tempContacts);
   }
 
@@ -38,7 +42,13 @@ function Contacts() {
         <h2>Search:</h2>
         <form onSubmit={searchData}>
           <label>Last Name:</label>
-          <input type="text" name='search' onChange={(e) => { setSearch(e.target.value)}}/>
+          <input
+            type="text"
+            name="search"
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+          />
           <input type="submit" value="search" />
         </form>
         <h2>Contacts</h2>
@@ -52,26 +62,32 @@ function Contacts() {
             <th>Delete:</th>
           </thead>
           <tbody>
-            {contacts.map(
-              ({
-                id,
-                fname,
-                lname,
-                phone_num,
-                email,
-              }) => (
-                <tr key={id}>
-                  <td>{fname}</td>
-                  <td>{!lname? "Not Added" : lname}</td>
-                  <td>{!phone_num? "Not Added" : `(${phone_num.slice(0,3)}) ${phone_num.slice(3,6)}-${phone_num.slice(-4)}`}</td>
-                  <td>
-                    {!email? "Not Added" : email}
-                  </td>
-                  <td><button className="btn btn-warning">Edit</button></td>
-                  <td><button className="btn btn-danger" onClick={()=>deleteContact({id})} >Delete</button></td>
-                </tr>
-              )
-            )}
+            {contacts.map(({ id, fname, lname, phone_num, email }) => (
+              <tr key={id}>
+                <td>{fname}</td>
+                <td>{!lname ? "Not Added" : lname}</td>
+                <td>
+                  {!phone_num
+                    ? "Not Added"
+                    : `(${phone_num.slice(0, 3)}) ${phone_num.slice(
+                        3,
+                        6
+                      )}-${phone_num.slice(-4)}`}
+                </td>
+                <td>{!email ? "Not Added" : email}</td>
+                <td>
+                  <button className="btn btn-warning">Edit</button>
+                </td>
+                <td>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deleteContact(id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
