@@ -1,6 +1,6 @@
 # Contact Book
 ## PERN App
-
+![screen shot](screen-shot.png)
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Client setup:
