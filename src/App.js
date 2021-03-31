@@ -3,7 +3,7 @@ import headerImg from './friends.png';
 import './App.css';
 import AddContactForm from "./components/AddContact";
 import Contacts from "./components/ShowContacts";
-import SearchContacts from "./components/SearchContacts";
+//import SearchContacts from "./components/SearchContacts";
 import Footer from "./components/Footer";
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
       </header>
       <main>
         <AddContactForm />
-        <SearchContacts />
+        {/*<SearchContacts />*/}
         <Contacts />
       </main>
       <Footer />

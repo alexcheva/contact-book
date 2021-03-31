@@ -6,7 +6,7 @@ const db = pgp("postgres://localhost:5432/contacts");
 
 app.use(cors());
 app.use(express.json()); //res.body
-//app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.get("/contacts", async (req, res) => {
   try {
     const contacts = await db.any("SELECT * FROM contacts;", [true]);
@@ -49,7 +49,8 @@ app.post('/addContact', async (req, res) => {
 });
 
 app.delete("/deleteContact/:id", async (req, res) => {
-  db.result(`DELETE FROM Events WHERE id = ${id}`, [true])
+  const id = req.body.id;
+  db.result(`DELETE FROM contacts WHERE id = ${id};`, [true])
     .then(data => {
         // data = number of rows that were deleted
       console.log(`deleted ${data}`);
