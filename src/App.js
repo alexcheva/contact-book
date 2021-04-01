@@ -1,8 +1,8 @@
-//import logo from './notebook.svg';
+
 import headerImg from './friends.png';
 import './App.css';
-import AddContactForm from "./components/AddContact";
-import Contacts from "./components/ShowContacts";
+import AddContact from "./components/AddContact";
+import ShowContacts from "./components/ShowContacts";
 //import SearchContacts from "./components/SearchContacts";
 import Footer from "./components/Footer";
 function App() {
@@ -14,9 +14,9 @@ function App() {
         <p>Keep your contacts organized.</p>
       </header>
       <main>
-        <AddContactForm />
+        <AddContact />
         {/*<SearchContacts />*/}
-        <Contacts />
+        <ShowContacts />
       </main>
       <Footer />
     </div>

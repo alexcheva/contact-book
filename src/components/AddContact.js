@@ -7,6 +7,7 @@ const AddContactForm = () => {
   const [email, setEmail] = React.useState("");
 
   const [msg, setMsg] = React.useState("");
+  const [alertClass, setAlertClass] = React.useState("");
   const submitForm = async (e) => {
    e.preventDefault();
     const body = {
@@ -30,11 +31,15 @@ const AddContactForm = () => {
       .then((res) => res.json())
       .then((data) => {
         if (!data.error) {
+          debugger
           const successMsg = `Success! ${data.fname} ${data.lname} has been added to your Contacts!`;
           setMsg(successMsg);
+          setAlertClass("alert alert-success")
         } else {
-          debugger
-          setMsg(`Error! ${data.error.detail}`)
+          //debugger
+          // if(data.error.constrain = contacts_email_key)
+          setMsg(`Error! ${data.message}`)
+          setAlertClass("alert alert-danger")
         }
         
       })
@@ -79,9 +84,9 @@ const AddContactForm = () => {
             </fieldset>
           </div>
         </div>
-        <div class="form-row" class="alert" role="alert">
+        <div class="form-row" className={alertClass} role="alert">
         {msg}</div>
-        <input type="submit" value="Add Contact" />
+        <button className="btn btn-primary" type="submit">Add Contact</button>
       </form>
     </section>
   );

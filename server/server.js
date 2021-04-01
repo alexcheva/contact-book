@@ -29,21 +29,29 @@ app.post('/addContact', async (req, res) => {
   try {
     const {fname, lname, phone_num, email} = req.body;
     await db.none('INSERT INTO contacts (fname, lname, phone_num, email ) values ($1,$2,$3,$4)', [fname, lname, phone_num, email]).then(data => {
-      res.json({
-        message: "Success!",
-        body: "The contact for ",
+      res.status(200).json({
         fname: fname,
-        lname: lname,
-        end: " has been added!"
+        lname: lname
       });
       console.log("SUCCESS: Individual is added to the contact book.");
   })
   } catch (err) {
-    console.log("fooo");
-    console.error(err.message);
-    res.json({
-      message: "Error!",
-      error: err
+    console.error(err.constraint);
+    let errMessage = "";
+    switch(err.constraint) {
+      case "contacts_email_key":
+        errMessage = "This email already exists!"
+        break;
+      case "contacts_lname_key":
+        errMessage = "This last name already exists!"
+        break;
+      default:
+        errMessage = err.message;
+    }
+    console.log(errMessage);
+    res.status(500).json({
+      message: errMessage,
+      error: true
     });
   }
 

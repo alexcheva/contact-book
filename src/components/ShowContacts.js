@@ -19,7 +19,7 @@ function Contacts() {
       console.error(err.message)
     }
   }
-  console.log(contacts);
+  //console.log(contacts);
 
   React.useEffect(() => {
     getContacts();
@@ -27,7 +27,6 @@ function Contacts() {
 
   function searchData(e) {
     e.preventDefault();
-    //take the string
     const tempContacts = contacts.filter(contact => contact.lname === search);
     setContacts(tempContacts);
   }
@@ -36,10 +35,12 @@ function Contacts() {
     <section className="container-fluid data">
       <div className="container table-responsive">
         <h2>Search:</h2>
-        <form onSubmit={searchData}>
+        <form className="form-inline" onSubmit={searchData}>
+        <div className="form-group mb-2">
           <label>Last Name:</label>
-          <input type="text" name='search' onChange={(e) => { setSearch(e.target.value)}}/>
-          <input type="submit" value="search" />
+            <input className="form-control" type="text" name='search' onChange={(e) => { setSearch(e.target.value) }} />
+            </div>
+          <button className="btn btn-info" type="submit">Search</button>
         </form>
         <h2>Contacts</h2>
         <table className="table table-striped">
