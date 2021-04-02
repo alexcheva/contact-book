@@ -2,6 +2,8 @@ import * as React from "react";
 function Contacts() {
   const [contacts, setContacts] = React.useState([]);
   const [search, setSearch] = React.useState("");
+  //derived state / calculated state
+  const displayContacts = search === "" ? contacts : contacts.filter(contact => contact.lname === search);
 
   function getContacts() {
     fetch("http://localhost:9000/contacts")
@@ -27,8 +29,9 @@ function Contacts() {
 
   function searchData(e) {
     e.preventDefault();
-    const tempContacts = contacts.filter(contact => contact.lname === search);
-    setContacts(tempContacts);
+   
+    //const tempContacts = contacts.filter(contact => contact.lname === search);
+    //setContacts(tempContacts);
   }
 
   return (
@@ -41,6 +44,7 @@ function Contacts() {
             <input className="form-control" type="text" name='search' onChange={(e) => { setSearch(e.target.value) }} />
             </div>
           <button className="btn btn-info" type="submit">Search</button>
+          <button type="reset" className="btn btn-secondary" onClick={()=>{setSearch("")}}>Reset</button>
         </form>
         <h2>Contacts</h2>
         <table className="table table-striped">
@@ -53,7 +57,7 @@ function Contacts() {
             <th>Delete:</th>
           </thead>
           <tbody>
-            {contacts.map(
+            {displayContacts.map(
               ({
                 id,
                 fname,
